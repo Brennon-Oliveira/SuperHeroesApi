@@ -11,4 +11,11 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SuperHeroes.Application\SuperHeroes.Application.csproj" />
+    <ProjectReference Include="..\SuperHeroes.Domain\SuperHeroes.Domain.csproj" />
+    <ProjectReference Include="..\SuperHeroes.Infra.CrossCutting.ServiceLocator\SuperHeroes.Infra.CrossCutting.ServiceLocator.csproj" />
+    <ProjectReference Include="..\SuperHeroes.Infra.Data\SuperHeroes.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>

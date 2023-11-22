@@ -25,8 +25,6 @@ namespace SuperHeroes.Infra.Data.Mappings
                 .WithMany(x => x.SuperHeroes)
                 .HasForeignKey(x => x.SuperPowersId)
                 .IsRequired();
-
-
         }
     }
 }

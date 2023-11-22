@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Domain", "Super
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Infra.CrossCutting.IoC", "SuperHeroes.Infra.CrossCutting.IoC\SuperHeroes.Infra.CrossCutting.IoC.csproj", "{521F41A1-AAC6-46F4-AC7C-6E84DA459558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.ServiceLocator", "SuperHeroes.ServiceLocator\SuperHeroes.ServiceLocator.csproj", "{294FE9ED-94C4-47AB-AD51-CD92D85880F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperHeroes.Infra.CrossCutting.ServiceLocator", "SuperHeroes.Infra.CrossCutting.ServiceLocator\SuperHeroes.Infra.CrossCutting.ServiceLocator.csproj", "{31C87730-3E2D-4533-9907-06D4333A17AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Release|Any CPU.Build.0 = Release|Any CPU
-		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31C87730-3E2D-4533-9907-06D4333A17AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31C87730-3E2D-4533-9907-06D4333A17AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31C87730-3E2D-4533-9907-06D4333A17AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31C87730-3E2D-4533-9907-06D4333A17AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Infinite.Application.Services
+namespace SuperHeroes.Application.Services
 {
     public class ServiceResponse<T>
     {

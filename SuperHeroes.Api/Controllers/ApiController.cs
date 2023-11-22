@@ -1,10 +1,10 @@
 ﻿
-using Infinite.Application.Services;
+using SuperHeroes.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using System.Net;
 
-namespace Infinite.Api.Controllers
+namespace SuperHeroes.Api.Controllers
 {
     public class ApiController : ControllerBase
     {

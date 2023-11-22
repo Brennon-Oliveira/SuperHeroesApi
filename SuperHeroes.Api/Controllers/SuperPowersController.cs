@@ -5,7 +5,7 @@ namespace SuperHeroes.Api.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
-    public class SuperHeroesController : ApiController
+    public class SuperPowersController : ApiController
     {
         [HttpGet]
         public async Task<ActionResult> GetAll()
