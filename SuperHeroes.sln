@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Api", "SuperHeroes.Api\SuperHeroes.Api.csproj", "{34411678-1484-404B-BB7D-0E4F96D61E8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Infra.Data", "SuperHeroes.Infra.Data\SuperHeroes.Infra.Data.csproj", "{2B78F51E-D325-4114-A1B8-375FAE38091E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Application", "SuperHeroes.Application\SuperHeroes.Application.csproj", "{6D7F1DD6-F090-441C-A0B9-740FC7F9F864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Domain", "SuperHeroes.Domain\SuperHeroes.Domain.csproj", "{72898FF6-73B1-4239-9E97-69F13489B524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.Infra.CrossCutting.IoC", "SuperHeroes.Infra.CrossCutting.IoC\SuperHeroes.Infra.CrossCutting.IoC.csproj", "{521F41A1-AAC6-46F4-AC7C-6E84DA459558}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHeroes.ServiceLocator", "SuperHeroes.ServiceLocator\SuperHeroes.ServiceLocator.csproj", "{294FE9ED-94C4-47AB-AD51-CD92D85880F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34411678-1484-404B-BB7D-0E4F96D61E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34411678-1484-404B-BB7D-0E4F96D61E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34411678-1484-404B-BB7D-0E4F96D61E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34411678-1484-404B-BB7D-0E4F96D61E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B78F51E-D325-4114-A1B8-375FAE38091E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B78F51E-D325-4114-A1B8-375FAE38091E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B78F51E-D325-4114-A1B8-375FAE38091E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B78F51E-D325-4114-A1B8-375FAE38091E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7F1DD6-F090-441C-A0B9-740FC7F9F864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7F1DD6-F090-441C-A0B9-740FC7F9F864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7F1DD6-F090-441C-A0B9-740FC7F9F864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7F1DD6-F090-441C-A0B9-740FC7F9F864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72898FF6-73B1-4239-9E97-69F13489B524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72898FF6-73B1-4239-9E97-69F13489B524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72898FF6-73B1-4239-9E97-69F13489B524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72898FF6-73B1-4239-9E97-69F13489B524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521F41A1-AAC6-46F4-AC7C-6E84DA459558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{294FE9ED-94C4-47AB-AD51-CD92D85880F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {107965D8-0AF6-4816-B959-4B927D243BB7}
+	EndGlobalSection
+EndGlobal
