@@ -53,7 +53,20 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public virtual async Task<int> Update(T entity)
         {
-            DbSet.Update(entity);
+            var props = entity.GetType().GetProperties();
+            var newEntity = await DbSet.Where(x => x.Id == entity.Id).FirstOrDefaultAsync();
+            foreach (var prop in props)
+            {
+                if (prop.Name == "Id")
+                {
+                    continue;
+                }
+                if(prop.GetValue(entity) != null)
+                {
+                    newEntity.GetType().GetProperty(prop.Name).SetValue(newEntity, prop.GetValue(entity));
+                }
+            }
+            DbSet.Update(newEntity);
             await SaveChanges();
             return entity.Id;
         }

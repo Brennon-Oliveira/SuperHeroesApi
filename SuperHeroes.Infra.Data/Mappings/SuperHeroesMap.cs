@@ -13,6 +13,7 @@ namespace SuperHeroes.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Domain.Models.SuperHeroes> builder)
         {
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasColumnType("varchar(120)").HasMaxLength(120);
             builder.Property(x => x.HeroName).IsRequired().HasColumnType("varchar(120)").HasMaxLength(120);
 

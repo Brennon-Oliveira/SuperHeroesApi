@@ -14,6 +14,7 @@ namespace SuperHeroes.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<SuperPowers> builder)
         {
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasColumnType("varchar(50)").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Description).IsRequired().HasColumnType("varchar(250)").HasMaxLength(250);
             builder.HasIndex(x => x.Name).IsUnique();

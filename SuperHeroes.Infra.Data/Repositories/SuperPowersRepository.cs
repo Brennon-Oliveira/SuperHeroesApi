@@ -30,8 +30,6 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public override async Task<int> Exists(int id) => await base.Exists(id);
 
-
-
         public async Task<int> NameIsAvaliable(string name)
         {
             return await DbSet.Where(x => x.Name == name).CountAsync();
@@ -49,7 +47,7 @@ namespace SuperHeroes.Infra.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<GetFullSuperPowerVO> GetFull(int id)
+        public async Task<GetFullSuperPowerVO?> GetFull(int id)
         {
             return await DbSet
                 .Where(x => x.Id == id)
@@ -65,7 +63,7 @@ namespace SuperHeroes.Infra.Data.Repositories
         public async Task<List<GetFullSuperPowerVO>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO)
         {
             return await DbSet
-                .Where(x => x.Name.Contains(getSuperPowersWithSearchVO.Search ?? ""))
+                .Where(x => x.Name.ToLower().Contains((getSuperPowersWithSearchVO.Search ?? "").ToLower()))
                 .Skip(getSuperPowersWithSearchVO.Page * getSuperPowersWithSearchVO.PageSize)
                 .Take(getSuperPowersWithSearchVO.PageSize)
                 .Select(x => new GetFullSuperPowerVO
