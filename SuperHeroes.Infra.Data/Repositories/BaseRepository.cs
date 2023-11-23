@@ -45,9 +45,9 @@ namespace SuperHeroes.Infra.Data.Repositories
             return entity.Id;
         }
 
-        public virtual void Remove(T entity)
+        public virtual void Remove(int id)
         {
-            DbSet.Remove(entity);
+            DbSet.Where(x => x.Id == id).ExecuteDelete();
         }
 
         public virtual void Update(T entity)
