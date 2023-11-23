@@ -21,6 +21,8 @@ namespace SuperHeroes.Domain.Actions
             {
                 throw new ArgumentException("Name cannot be null or whitespace.", nameof(createSuperPowerVO.Name));
             }
+
+            throw new NotImplementedException();
         }
     }
 }
