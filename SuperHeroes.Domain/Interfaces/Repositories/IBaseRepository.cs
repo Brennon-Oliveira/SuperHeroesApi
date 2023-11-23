@@ -10,6 +10,6 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
         Task<T> GetById(int id);
         Task<int> SaveChanges();
         void Remove(int id);
-        void Update(T entity);
+        Task<int> Update(T entity);
     }
 }

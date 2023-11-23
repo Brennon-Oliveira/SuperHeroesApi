@@ -28,7 +28,7 @@ namespace SuperHeroes.Infra.Data.Repositories
             Db.Dispose();
         }
 
-        public virtual async Task<T> GetById(Guid id)
+        public virtual async Task<T> GetById(int id)
         {
             return await DbSet.FindAsync(id);
         }
@@ -50,9 +50,11 @@ namespace SuperHeroes.Infra.Data.Repositories
             DbSet.Where(x => x.Id == id).ExecuteDelete();
         }
 
-        public virtual void Update(T entity)
+        public virtual async Task<int> Update(T entity)
         {
             DbSet.Update(entity);
+            await SaveChanges();
+            return entity.Id;
         }
 
         public async Task<int> SaveChanges()

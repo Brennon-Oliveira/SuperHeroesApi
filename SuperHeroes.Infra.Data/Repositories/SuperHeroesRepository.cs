@@ -17,12 +17,12 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public override Task<int> Add(Domain.Models.SuperHeroes entity) => base.Add(entity);
 
-        public override void Remove(Domain.Models.SuperHeroes entity) => base.Remove(entity);
+        public override void Remove(int id) => base.Remove(id);
 
-        public override void Update(Domain.Models.SuperHeroes entity) => base.Update(entity);
+        public override Task<int> Update(Domain.Models.SuperHeroes entity) => base.Update(entity);
 
         public override async Task<List<Domain.Models.SuperHeroes>> GetAll() => await base.GetAll();
 
-        public override async Task<Domain.Models.SuperHeroes> GetById(Guid id) => await base.GetById(id);
+        public override async Task<Domain.Models.SuperHeroes> GetById(int id) => await base.GetById(id);
     }
 }

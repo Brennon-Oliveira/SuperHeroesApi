@@ -10,6 +10,7 @@ namespace SuperHeroes.Domain.Interfaces.Actions
     public interface ISuperPowersActions
     {
         public Task<int> Create(CreateSuperPowerVO createSuperPowerVO);
+        public Task<int> Update(UpdateSuperPowerVO updateSuperPowerVO);
         public void Delete(int id);
 
     }

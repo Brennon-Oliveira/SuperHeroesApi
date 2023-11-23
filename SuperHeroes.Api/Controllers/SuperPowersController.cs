@@ -1,5 +1,7 @@
 ﻿using SuperHeroes.Api.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using SuperHeroes.Infra.CrossCutting.ServiceLocator;
+using SuperHeroes.Application.Interfaces.Services;
 
 namespace SuperHeroes.Api.Controllers
 {
@@ -7,10 +9,14 @@ namespace SuperHeroes.Api.Controllers
     [ApiController]
     public class SuperPowersController : ApiController
     {
+
+        private readonly ISuperPowersService _superPowersService = ServiceLocator.GetService<ISuperPowersService>();
+
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            return Ok();
+            var result = _superPowersService.GetAll();
+            return CustomResponse(result);
         }
 
         [HttpGet("{id}")]

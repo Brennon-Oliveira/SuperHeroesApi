@@ -23,7 +23,7 @@ namespace SuperHeroes.Domain.Actions
 
             if(string.IsNullOrWhiteSpace(createSuperPowerVO.Name))
             {
-                throw new ArgumentException("Name cannot be null or whitespace.", nameof(createSuperPowerVO.Name));
+                throw new ArgumentException("Nome precisa ser preenchido");
             }
 
             SuperPowers superPower = new SuperPowers
@@ -32,12 +32,73 @@ namespace SuperHeroes.Domain.Actions
                 Description = createSuperPowerVO.Description
             };
 
+            int nameIsAvaliable = await _superPowersRepository.NameIsAvaliable(superPower.Name);
+
+            if(nameIsAvaliable > 0)
+            {
+                throw new ArgumentException("Nome já está em uso");
+            }
+
             int id = await _superPowersRepository.Add(superPower);
             return id;
         }
 
-        public void Delete(int id)
+        public async Task<int> Update(UpdateSuperPowerVO updateSuperPowerVO)
         {
+            if (updateSuperPowerVO is null)
+            {
+                throw new ArgumentNullException(nameof(updateSuperPowerVO));
+            }
+
+            if(updateSuperPowerVO.Id <= 0)
+            {
+                throw new ArgumentException("Id precisa ser preenchido e positivo");
+            }
+
+            int exists = await _superPowersRepository.Exists(updateSuperPowerVO.Id);
+            if (exists < 0)
+            {
+                throw new ArgumentException("Nenhum poder encontrado para o id " + updateSuperPowerVO.Id);
+            }
+
+            int nameIsAvaliable = await _superPowersRepository.NameIsAvaliable(updateSuperPowerVO.Name);
+
+            if (nameIsAvaliable > 0)
+            {
+                throw new ArgumentException("Nome já está em uso");
+            }
+
+            SuperPowers superPowers = new SuperPowers
+            {
+                Id = updateSuperPowerVO.Id,
+            };
+
+            if (!string.IsNullOrWhiteSpace(updateSuperPowerVO.Name))
+            {
+                superPowers.Name = updateSuperPowerVO.Name;
+            }
+
+            if(updateSuperPowerVO.Description != null)
+            {
+                superPowers.Description = updateSuperPowerVO.Description;
+            }
+
+            return await _superPowersRepository.Update(superPowers);
+        }
+
+        public async void Delete(int id)
+        {
+            if(id <= 0)
+            {
+                throw new ArgumentException("Id precisa ser preenchido e positivo");
+            }
+
+            int exists = await _superPowersRepository.Exists(id);
+            if (exists < 0)
+            {
+                   throw new ArgumentException("Nenhum poder encontrado para o id " + id);
+            }
+
             _superPowersRepository.Remove(id);
         }
     }
