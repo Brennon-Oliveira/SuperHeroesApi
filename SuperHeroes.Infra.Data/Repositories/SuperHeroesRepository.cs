@@ -63,14 +63,33 @@ namespace SuperHeroes.Infra.Data.Repositories
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Domain.Models.SuperHeroes>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO)
+        public async Task<List<GetFullSuperHeroVO>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO)
         {
             string search = getSuperHeroesWithSearchVO.Search ?? "";
             return await DbSet
                 .Where(x => x.Name.Contains(search) || x.HeroName.Contains(search))
                 .Skip(getSuperHeroesWithSearchVO.Page * getSuperHeroesWithSearchVO.PageSize)
                 .Take(getSuperHeroesWithSearchVO.PageSize)
-                .ToListAsync();
+                .Include(x => x.SuperPowers)
+                .ThenInclude(x => x.SuperPowers)
+                .Select(x => new GetFullSuperHeroVO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    HeroName = x.HeroName,
+                    BirthDate = x.BirthDate,
+                    Height = x.Height,
+                    Weight = x.Weight,
+                    SuperPowers = x.SuperPowers.Select(y => new GetSuperHeroSuperPowerPowerVO
+                    {
+                        SuperPowers = new GetSuperPowerWithoutHeroVO
+                        {
+                            Id = y.SuperPowers.Id,
+                            Name = y.SuperPowers.Name,
+                            Description = y.SuperPowers.Description
+                        }
+                    }).ToList()
+                }).ToListAsync();
         }
 
         public async Task AddSuperPowers(int superHeroId, List<int> superPowers)
@@ -81,6 +100,31 @@ namespace SuperHeroes.Infra.Data.Repositories
                 SuperPowersId = x
             }));
             await Db.SaveChangesAsync();
+        }
+
+        public async Task<List<GetFullSuperHeroVO>> GetAllFull()
+        {
+            return await DbSet
+                .Include(x => x.SuperPowers)
+                .ThenInclude(x => x.SuperPowers)
+                .Select(x => new GetFullSuperHeroVO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    HeroName = x.HeroName,
+                    BirthDate = x.BirthDate,
+                    Height = x.Height,
+                    Weight = x.Weight,
+                    SuperPowers = x.SuperPowers.Select(y => new GetSuperHeroSuperPowerPowerVO
+                    {
+                        SuperPowers = new GetSuperPowerWithoutHeroVO
+                        {
+                            Id = y.SuperPowers.Id,
+                            Name = y.SuperPowers.Name,
+                            Description = y.SuperPowers.Description
+                        }
+                    }).ToList()
+                }).ToListAsync();
         }
     }
 }

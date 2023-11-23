@@ -16,7 +16,7 @@ namespace SuperHeroes.Application.Interfaces.Services
         public Task<ServiceResponse<int>> Update(UpdateSuperHeroViewModel updateSuperHeroViewModel);
         public Task<ServiceResponse<int?>> Delete(int id);
         Task<ServiceResponse<GetFullSuperHeroVO>> GetById(int id);
-        Task<ServiceResponse<List<Domain.Models.SuperHeroes>>> GetAll();
-        Task<ServiceResponse<PaginationResponseVO<Domain.Models.SuperHeroes>>> GetSuperHeroesWithSearch(GetHeroesWithSearchViewModel getHeroesWithSearchViewModel);
+        Task<ServiceResponse<List<GetFullSuperHeroVO>>> GetAll();
+        Task<ServiceResponse<PaginationResponseVO<GetFullSuperHeroVO>>> GetSuperHeroesWithSearch(GetHeroesWithSearchViewModel getHeroesWithSearchViewModel);
     }
 }

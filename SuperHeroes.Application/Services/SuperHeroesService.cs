@@ -116,22 +116,22 @@ namespace SuperHeroes.Application.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Domain.Models.SuperHeroes>>> GetAll()
+        public async Task<ServiceResponse<List<GetFullSuperHeroVO>>> GetAll()
         {
-            ServiceResponse<List<Domain.Models.SuperHeroes>> serviceResponse = new()
+            ServiceResponse<List<GetFullSuperHeroVO>> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK,
-                Data = await _superHeroesRepository.GetAll()
+                Data = await _superHeroesRepository.GetAllFull()
             };
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<PaginationResponseVO<Domain.Models.SuperHeroes>>> GetSuperHeroesWithSearch(GetHeroesWithSearchViewModel getHeroesWithSearchViewModel)
+        public async Task<ServiceResponse<PaginationResponseVO<GetFullSuperHeroVO>>> GetSuperHeroesWithSearch(GetHeroesWithSearchViewModel getHeroesWithSearchViewModel)
         {
-            ServiceResponse<PaginationResponseVO<Domain.Models.SuperHeroes>> serviceResponse = new()
+            ServiceResponse<PaginationResponseVO<GetFullSuperHeroVO>> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK,
-                Data = new PaginationResponseVO<Domain.Models.SuperHeroes>
+                Data = new PaginationResponseVO<GetFullSuperHeroVO>
                 {
                     Page = getHeroesWithSearchViewModel.Page,
                     PageSize = getHeroesWithSearchViewModel.PageSize,

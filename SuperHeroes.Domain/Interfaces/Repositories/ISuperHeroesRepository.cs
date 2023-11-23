@@ -12,8 +12,9 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
     public interface ISuperHeroesRepository : IBaseRepository<Models.SuperHeroes>
     {
         Task<int> NameIsAvaliable(string name, string heroName);
-        Task<List<Models.SuperHeroes>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO);
+        Task<List<GetFullSuperHeroVO>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO);
         Task AddSuperPowers(int superHeroId, List<int> superPowers);
+        Task<List<GetFullSuperHeroVO>> GetAllFull();
         Task<GetFullSuperHeroVO> GetFullHero(int id);
     }
 }
