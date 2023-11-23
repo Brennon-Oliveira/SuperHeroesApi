@@ -16,27 +16,28 @@ namespace SuperHeroes.Domain.Actions
 
         private readonly ISuperHeroesRepository _superHeroesRepository = ServiceLocator.GetService<ISuperHeroesRepository>();
 
+        
         public async Task<int> Create(CreateSuperHeroVO createSuperHeroVO)
         {
             if (createSuperHeroVO == null)
             {
                 throw new ArgumentNullException("Dados precisam ser preenchidos");
             }
-            if (createSuperHeroVO.Name == null)
+            if (string.IsNullOrWhiteSpace(createSuperHeroVO.Name))
             {
                 throw new ArgumentNullException("Nome precisa ser preenchido");
             }
-            if (createSuperHeroVO.HeroName == null)
+            if (string.IsNullOrWhiteSpace(createSuperHeroVO.HeroName))
             {
                 throw new ArgumentNullException("Nome do herói precisa ser preenchido");
             }
-            if (createSuperHeroVO.Height == 0)
+            if (createSuperHeroVO.Height <= 0)
             {
-                throw new ArgumentNullException("Altura precisa ser preenchida");
+                throw new ArgumentNullException("Altura precisa ser preenchida e positiva");
             }
-            if (createSuperHeroVO.Weight == 0)
+            if (createSuperHeroVO.Weight <= 0)
             {
-                throw new ArgumentNullException("Peso precisa ser preenchido");
+                throw new ArgumentNullException("Peso precisa ser preenchido e positivo");
             }
 
             Models.SuperHeroes superHero = new Models.SuperHeroes

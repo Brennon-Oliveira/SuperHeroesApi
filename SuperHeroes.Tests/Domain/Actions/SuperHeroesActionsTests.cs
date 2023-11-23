@@ -30,8 +30,16 @@ namespace SuperHeroes.Tests.Domain.Actions
 
         }
 
-        [TestMethod()]
-        public void CreateTest()
+        private void CreateServiceProvider()
+        {
+            IServiceCollection services = new ServiceCollection();
+            services.AddSingleton<ISuperHeroesRepository>(_superHeroesRepository.Object);
+
+            ServiceLocator.SetProvider(services.BuildServiceProvider());
+        }
+
+        [TestMethod("Create should work returning the id")]
+        public void CreateWorksTest()
         {
 
             CreateSuperHeroVO createSuperHeroVO = new()
@@ -60,16 +68,55 @@ namespace SuperHeroes.Tests.Domain.Actions
                 x.Weight == superHeroes.Weight
             ))).ReturnsAsync(1);
 
-            IServiceCollection services = new ServiceCollection();
-            services.AddSingleton<ISuperHeroesRepository>(_superHeroesRepository.Object);
-
-            ServiceLocator.SetProvider(services.BuildServiceProvider());
+            CreateServiceProvider();
 
             SuperHeroesActions superHeroesActions = new();
 
             int result = superHeroesActions.Create(createSuperHeroVO).Result;
 
             Assert.AreEqual(1, result);
+        }
+
+        [TestMethod("Create should throw ArgumentNullException when createSuperHeroVO is null")]
+        public void CreateThrowsArgumentNullExceptionWhenCreateSuperHeroVOIsNullTest()
+        {
+            CreateSuperHeroVO createSuperHeroVO = null;
+            createSuperHeroVO = new CreateSuperHeroVO
+            {
+                Name = "Teste",
+                HeroName = "Teste",
+                BirthDate = DateTime.Now,
+                Height = 1,
+                Weight = 1
+            };
+
+            CreateServiceProvider();
+
+            SuperHeroesActions superHeroesActions = new();
+
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => superHeroesActions.Create(createSuperHeroVO));
+
+            createSuperHeroVO = new CreateSuperHeroVO
+            {
+                Name = "",
+                HeroName = "Teste",
+                BirthDate = DateTime.Now,
+                Height = 1,
+                Weight = 1
+            };
+
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => superHeroesActions.Create(createSuperHeroVO));
+
+            createSuperHeroVO = new CreateSuperHeroVO
+            {
+                Name = "Teste",
+                HeroName = "",
+                BirthDate = DateTime.Now,
+                Height = 1,
+                Weight = 1
+            };
+
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => superHeroesActions.Create(createSuperHeroVO));
         }
     }
 }
