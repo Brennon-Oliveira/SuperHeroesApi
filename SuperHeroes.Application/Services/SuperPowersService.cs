@@ -5,6 +5,7 @@ using SuperHeroes.Domain.Interfaces.Actions;
 using SuperHeroes.Domain.Interfaces.Repositories;
 using SuperHeroes.Domain.Models;
 using SuperHeroes.Domain.VOs.Commons;
+using SuperHeroes.Domain.VOs.SuperPowers;
 using SuperHeroes.Infra.CrossCutting.ServiceLocator;
 using System;
 using System.Collections.Generic;
@@ -98,14 +99,14 @@ namespace SuperHeroes.Application.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<SuperPowers>> GetById(int id)
+        public async Task<ServiceResponse<GetFullSuperPowerVO>> GetById(int id)
         {
 
             SuperPowers? superPowers = await _superPowersRepository.GetById(id);
-            ServiceResponse<SuperPowers> serviceResponse = new()
+            ServiceResponse<GetFullSuperPowerVO> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK,
-                Data = await _superPowersRepository.GetById(id)
+                Data = await _superPowersRepository.GetFull(id)
             };
             if (superPowers is null)
             {
@@ -116,22 +117,22 @@ namespace SuperHeroes.Application.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<SuperPowers>>> GetAll()
+        public async Task<ServiceResponse<List<GetFullSuperPowerVO>>> GetAll()
         {
-            ServiceResponse<List<SuperPowers>> serviceResponse = new()
+            ServiceResponse<List<GetFullSuperPowerVO>> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK,
-                Data = await _superPowersRepository.GetAll()
+                Data = await _superPowersRepository.GetAllFull()
             };
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<PaginationResponseVO<SuperPowers>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel)
+        public async Task<ServiceResponse<PaginationResponseVO<GetFullSuperPowerVO>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel)
         {
-            ServiceResponse<PaginationResponseVO<SuperPowers>> serviceResponse = new()
+            ServiceResponse<PaginationResponseVO<GetFullSuperPowerVO>> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK,
-                Data = new PaginationResponseVO<SuperPowers> {
+                Data = new PaginationResponseVO<GetFullSuperPowerVO> {
                     Page = getSuperPowersWithSearchViewModel.Page,
                     PageSize = getSuperPowersWithSearchViewModel.PageSize,
                     Total = await _superPowersRepository.GetCount(),

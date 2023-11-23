@@ -2,6 +2,7 @@
 using SuperHeroes.Application.ViewModels.SuperPowers;
 using SuperHeroes.Domain.Models;
 using SuperHeroes.Domain.VOs.Commons;
+using SuperHeroes.Domain.VOs.SuperPowers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace SuperHeroes.Application.Interfaces.Services
         public Task<ServiceResponse<int>> Create(CreateSuperPowerViewModel createSuperPowerViewModel);
         public Task<ServiceResponse<int>> Update(UpdateSuperPowerViewModel updateSuperPowerViewModel);
         public Task<ServiceResponse<int?>> Delete(int id);
-        public Task<ServiceResponse<SuperPowers>> GetById(int id);
-        public Task<ServiceResponse<List<SuperPowers>>> GetAll();
-        public Task<ServiceResponse<PaginationResponseVO<SuperPowers>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel);
+        public Task<ServiceResponse<GetFullSuperPowerVO>> GetById(int id);
+        public Task<ServiceResponse<List<GetFullSuperPowerVO>>> GetAll();
+        public Task<ServiceResponse<PaginationResponseVO<GetFullSuperPowerVO>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel);
     }
 }

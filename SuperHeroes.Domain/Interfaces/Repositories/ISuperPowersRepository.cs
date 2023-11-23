@@ -11,7 +11,9 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
     public interface ISuperPowersRepository : IBaseRepository<SuperPowers>
     {
         Task<int> NameIsAvaliable(string name);
-        Task<List<SuperPowers>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO);
+        Task<List<GetFullSuperPowerVO>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO);
+        Task<List<GetFullSuperPowerVO>> GetAllFull();
+        Task<GetFullSuperPowerVO> GetFull(int id);
         Task<int> SuperPowersExists(List<int> ids);
     }
 }

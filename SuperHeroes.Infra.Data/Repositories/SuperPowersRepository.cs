@@ -49,7 +49,18 @@ namespace SuperHeroes.Infra.Data.Repositories
                 .ToListAsync();
         }
 
-
+        public async Task<GetFullSuperPowerVO> GetFull(int id)
+        {
+            return await DbSet
+                .Where(x => x.Id == id)
+                .Select(x => new GetFullSuperPowerVO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description
+                })
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<List<GetFullSuperPowerVO>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO)
         {
