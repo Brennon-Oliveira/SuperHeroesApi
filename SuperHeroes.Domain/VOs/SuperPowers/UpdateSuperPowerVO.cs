@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperHeroes.Domain.VOs.SuperPowers
 {
-    public class UpdateSuperPowerVO
+    public class UpdateSuperHeroVO
     {
         public int Id { get; set; }
         public string? Name { get; set; }

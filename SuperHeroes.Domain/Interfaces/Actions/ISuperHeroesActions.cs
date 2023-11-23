@@ -10,5 +10,7 @@ namespace SuperHeroes.Domain.Interfaces.Actions
     public interface ISuperHeroesActions
     {
         public Task<int> Create(CreateSuperHeroVO createSuperHeroVO);
+        Task<int> Update(UpdateSuperHeroVO updateSuperHeroVO);
+        void Delete(int id);
     }
 }

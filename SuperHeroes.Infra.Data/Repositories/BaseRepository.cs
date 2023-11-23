@@ -61,6 +61,10 @@ namespace SuperHeroes.Infra.Data.Repositories
         {
             return await DbSet.Where(x => x.Id == id).CountAsync();
         }
+        public async Task<int> GetCount()
+        {
+            return await DbSet.CountAsync();
+        }
 
         public async Task<int> SaveChanges()
         {

@@ -4,6 +4,7 @@ using SuperHeroes.Application.ViewModels.SuperPowers;
 using SuperHeroes.Domain.Interfaces.Actions;
 using SuperHeroes.Domain.Interfaces.Repositories;
 using SuperHeroes.Domain.Models;
+using SuperHeroes.Domain.VOs.Commons;
 using SuperHeroes.Infra.CrossCutting.ServiceLocator;
 using System;
 using System.Collections.Generic;
@@ -126,14 +127,19 @@ namespace SuperHeroes.Application.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<SuperPowers>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel)
+        public async Task<ServiceResponse<PaginationResponseVO<SuperPowers>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel)
         {
-            ServiceResponse<List<SuperPowers>> serviceResponse = new()
+            ServiceResponse<PaginationResponseVO<SuperPowers>> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK,
-                Data = await _superPowersRepository.GetSuperPowersWithSearch(getSuperPowersWithSearchViewModel.ToGetSuperPowersWithSearchVO())
+                Data = new PaginationResponseVO<SuperPowers> {
+                    Page = getSuperPowersWithSearchViewModel.Page,
+                    PageSize = getSuperPowersWithSearchViewModel.PageSize,
+                    Total = await _superPowersRepository.GetCount(),
+                    Itens = await _superPowersRepository.GetSuperPowersWithSearch(getSuperPowersWithSearchViewModel.ToGetSuperPowersWithSearchVO())
+                }
             };
-            if(serviceResponse.Data.Count == 0 && !string.IsNullOrEmpty(getSuperPowersWithSearchViewModel.Search))
+            if(serviceResponse.Data.Itens.Count == 0 && !string.IsNullOrEmpty(getSuperPowersWithSearchViewModel.Search))
             {
                 serviceResponse.StatusCode = HttpStatusCode.NotFound;
                 serviceResponse.Errors.Add("Nenhum poder encontrado com os filtros informados");

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SuperHeroes.Domain.VOs.SuperHeroes
 {
-    public class GetHeroesWithSearchVO : PaginationVO
+    public class GetSuperHeroesWithSearchVO : PaginationVO
     {
-        public string SearchText { get; set; }
+        public string? Search { get; set; }
     }
 }

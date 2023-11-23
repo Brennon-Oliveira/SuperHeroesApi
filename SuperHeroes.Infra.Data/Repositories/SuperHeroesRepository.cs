@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SuperHeroes.Domain.Interfaces.Repositories;
+using SuperHeroes.Domain.Models;
+using SuperHeroes.Domain.VOs.SuperHeroes;
+using SuperHeroes.Domain.VOs.SuperPowers;
 using SuperHeroes.Infra.Data.Contexts;
 using System;
 using System.Collections.Generic;
@@ -26,5 +30,21 @@ namespace SuperHeroes.Infra.Data.Repositories
         public override async Task<Domain.Models.SuperHeroes> GetById(int id) => await base.GetById(id);
 
         public override async Task<int> Exists(int id) => await base.Exists(id);
+
+        public async Task<int> NameIsAvaliable(string name, string heroName)
+        {
+            return await DbSet.Where(x => x.Name == name || x.HeroName == heroName).CountAsync();
+        }
+
+        public async Task<List<Domain.Models.SuperHeroes>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO)
+        {
+
+            string search = getSuperHeroesWithSearchVO.Search ?? "";
+            return await DbSet
+                .Where(x => x.Name.Contains(search) || x.HeroName.Contains(search))
+                .Skip(getSuperHeroesWithSearchVO.Page * getSuperHeroesWithSearchVO.PageSize)
+                .Take(getSuperHeroesWithSearchVO.PageSize)
+                .ToListAsync();
+        }
     }
 }

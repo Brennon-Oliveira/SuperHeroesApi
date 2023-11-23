@@ -8,8 +8,8 @@ namespace SuperHeroes.Domain.Models
 {
     public class SuperHeroes : BaseModel
     {
-        public required string Name { get; set; }
-        public required string HeroName { get; set; }
+        public string Name { get; set; }
+        public string HeroName { get; set; }
         public DateTime? BirthDate { get; set; }
         public float Height { get; set; }
         public float Weight { get; set; }

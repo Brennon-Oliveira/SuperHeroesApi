@@ -10,16 +10,15 @@ namespace SuperHeroes.Application.ViewModels.SuperHeroes
 {
     public class GetHeroesWithSearchViewModel: PaginationViewModel
     {
-        public string SearchText { get; set; }
+        public string Search { get; set; }
 
-        public GetHeroesWithSearchVO ToGetHeroesWithSearchVO()
+        public GetSuperHeroesWithSearchVO ToGetHeroesWithSearchVO()
         {
-            return new GetHeroesWithSearchVO
+            return new GetSuperHeroesWithSearchVO
             {
                 Page = this.Page,
                 PageSize = this.PageSize,
-                TotalPages = this.TotalPages,
-                SearchText = this.SearchText
+                Search = this.Search
             };
         }
     }

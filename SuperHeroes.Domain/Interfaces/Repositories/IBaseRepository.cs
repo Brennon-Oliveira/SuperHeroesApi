@@ -12,5 +12,6 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
         void Remove(int id);
         Task<int> Update(T entity);
         Task<int> Exists(int id);
+        Task<int> GetCount();
     }
 }

@@ -43,7 +43,7 @@ namespace SuperHeroes.Domain.Actions
             return id;
         }
 
-        public async Task<int> Update(UpdateSuperPowerVO updateSuperPowerVO)
+        public async Task<int> Update(UpdateSuperHeroVO updateSuperPowerVO)
         {
             if (updateSuperPowerVO is null)
             {

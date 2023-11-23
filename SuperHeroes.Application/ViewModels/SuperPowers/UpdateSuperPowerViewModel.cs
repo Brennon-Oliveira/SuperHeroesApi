@@ -13,9 +13,9 @@ namespace SuperHeroes.Application.ViewModels.SuperPowers
         public string? Name { get; set; }
         public string? Description { get; set; }
 
-        public UpdateSuperPowerVO ToUpdateSuperPowerVO()
+        public UpdateSuperHeroVO ToUpdateSuperPowerVO()
         {
-            return new UpdateSuperPowerVO
+            return new UpdateSuperHeroVO
             {
                 Id = this.Id,
                 Name = this.Name,
