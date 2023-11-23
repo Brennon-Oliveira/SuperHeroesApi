@@ -12,11 +12,11 @@ namespace SuperHeroes.Infra.Data.Repositories
 {
     internal class SuperPowersRepository : BaseRepository<SuperPowers>, ISuperPowersRepository
     {
-        public SuperPowersRepository(AppDbContext context, HttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public SuperPowersRepository(AppDbContext context) : base(context)
         {
         }
 
-        public override void Add(SuperPowers entity) => base.Add(entity);
+        public override Task<int> Add(SuperPowers entity) => base.Add(entity);
 
         public override void Remove(SuperPowers entity) => base.Remove(entity);
 

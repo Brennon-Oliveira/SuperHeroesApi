@@ -12,12 +12,6 @@ namespace SuperHeroes.Infra.CrossCutting.IoC
 
         public static void RegisterServices(this IServiceCollection services)
         {
-
-            services.AddHttpContextAccessor();
-            var accessor = new HttpContextAccessor();
-
-            services.AddSingleton<HttpContextAccessor>(accessor);
-
             ApplicationsNativeInjector.RegisterServices(services);
             DomainNativeInjector.RegisterServices(services);
             InfraDataNativeInjector.RegisterServices(services);

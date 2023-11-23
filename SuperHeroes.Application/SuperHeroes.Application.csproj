@@ -12,10 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SuperHeroes.Domain\SuperHeroes.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\SuperHeroes\" />
+    <ProjectReference Include="..\SuperHeroes.Infra.CrossCutting.ServiceLocator\SuperHeroes.Infra.CrossCutting.ServiceLocator.csproj" />
   </ItemGroup>
 
 </Project>

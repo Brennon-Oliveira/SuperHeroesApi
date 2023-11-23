@@ -1,4 +1,5 @@
 ﻿using SuperHeroes.Application.Interfaces.Services;
+using SuperHeroes.Application.ViewModels.SuperPowers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,9 @@ namespace SuperHeroes.Application.Services
 {
     internal class SuperPowersService : ISuperPowersService
     {
+        public Task<ServiceResponse<int>> Create(CreateSuperPowerViewModel createSuperPowerViewModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="VOs\" />
+    <ProjectReference Include="..\SuperHeroes.Infra.CrossCutting.ServiceLocator\SuperHeroes.Infra.CrossCutting.ServiceLocator.csproj" />
   </ItemGroup>
 
 </Project>

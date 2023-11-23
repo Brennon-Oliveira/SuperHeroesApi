@@ -2,8 +2,6 @@
 using SuperHeroes.Domain.Models;
 using SuperHeroes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-
 
 namespace SuperHeroes.Infra.Data.Repositories
 {
@@ -18,15 +16,12 @@ namespace SuperHeroes.Infra.Data.Repositories
 
 
         public BaseRepository(
-            AppDbContext context,
-            HttpContextAccessor httpContextAccessor
+            AppDbContext context
         )
         {
             Db = context;
             DbSet = Db.Set<T>();
-            UserId = new Guid(httpContextAccessor.HttpContext.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value);
         }
-
 
         public void Dispose()
         {
@@ -43,9 +38,11 @@ namespace SuperHeroes.Infra.Data.Repositories
             return await DbSet.ToListAsync();
         }
 
-        public virtual void Add(T entity)
+        public virtual async Task<int> Add(T entity)
         {
             DbSet.Add(entity);
+            await SaveChanges();
+            return entity.Id;
         }
 
         public virtual void Remove(T entity)
