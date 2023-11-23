@@ -24,5 +24,7 @@ namespace SuperHeroes.Infra.Data.Repositories
         public override async Task<List<Domain.Models.SuperHeroes>> GetAll() => await base.GetAll();
 
         public override async Task<Domain.Models.SuperHeroes> GetById(int id) => await base.GetById(id);
+
+        public override async Task<int> Exists(int id) => await base.Exists(id);
     }
 }

@@ -11,5 +11,6 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
         Task<int> SaveChanges();
         void Remove(int id);
         Task<int> Update(T entity);
+        Task<int> Exists(int id);
     }
 }

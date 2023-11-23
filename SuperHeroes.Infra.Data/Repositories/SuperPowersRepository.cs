@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SuperHeroes.Domain.Interfaces.Repositories;
 using SuperHeroes.Domain.Models;
+using SuperHeroes.Domain.VOs.SuperPowers;
 using SuperHeroes.Infra.Data.Contexts;
 using System;
 using System.Collections.Generic;
@@ -27,14 +28,20 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public override async Task<SuperPowers> GetById(int id) => await base.GetById(id);
 
+        public override async Task<int> Exists(int id) => await base.Exists(id);
+
         public async Task<int> NameIsAvaliable(string name)
         {
             return await DbSet.Where(x => x.Name == name).CountAsync();
         }
 
-        public async Task<int> Exists(int id)
+        public async Task<List<SuperPowers>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO)
         {
-            return await DbSet.Where(x => x.Id == id).CountAsync();
+            return await DbSet
+                .Where(x => x.Name.Contains(getSuperPowersWithSearchVO.Search ?? ""))
+                .Skip(getSuperPowersWithSearchVO.Page * getSuperPowersWithSearchVO.PageSize)
+                .Take(getSuperPowersWithSearchVO.PageSize)
+                .ToListAsync();
         }
     }
 }

@@ -125,5 +125,20 @@ namespace SuperHeroes.Application.Services
             };
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<List<SuperPowers>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel)
+        {
+            ServiceResponse<List<SuperPowers>> serviceResponse = new()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Data = await _superPowersRepository.GetSuperPowersWithSearch(getSuperPowersWithSearchViewModel.ToGetSuperPowersWithSearchVO())
+            };
+            if(serviceResponse.Data.Count == 0 && !string.IsNullOrEmpty(getSuperPowersWithSearchViewModel.Search))
+            {
+                serviceResponse.StatusCode = HttpStatusCode.NotFound;
+                serviceResponse.Errors.Add("Nenhum poder encontrado com os filtros informados");
+            }
+            return serviceResponse;
+        }
     }
 }

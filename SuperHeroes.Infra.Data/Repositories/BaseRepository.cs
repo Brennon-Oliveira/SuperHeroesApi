@@ -57,10 +57,16 @@ namespace SuperHeroes.Infra.Data.Repositories
             return entity.Id;
         }
 
+        public virtual async Task<int> Exists(int id)
+        {
+            return await DbSet.Where(x => x.Id == id).CountAsync();
+        }
+
         public async Task<int> SaveChanges()
         {
             return await Db.SaveChangesAsync();
         }
+
 
     }
 }

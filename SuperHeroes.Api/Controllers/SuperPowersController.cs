@@ -47,5 +47,13 @@ namespace SuperHeroes.Api.Controllers
             var result = await _superPowersService.Delete(id);
             return CustomResponse(result);
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult> GetSuperPowersWithSearch([FromQuery] GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel)
+        {
+            var result = await _superPowersService.GetSuperPowersWithSearch(getSuperPowersWithSearchViewModel);
+            return CustomResponse(result);
+        }
+
     }
 }

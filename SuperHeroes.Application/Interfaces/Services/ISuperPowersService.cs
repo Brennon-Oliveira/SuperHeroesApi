@@ -16,5 +16,6 @@ namespace SuperHeroes.Application.Interfaces.Services
         public Task<ServiceResponse<int?>> Delete(int id);
         public Task<ServiceResponse<SuperPowers>> GetById(int id);
         public Task<ServiceResponse<List<SuperPowers>>> GetAll();
+        Task<ServiceResponse<List<SuperPowers>>> GetSuperPowersWithSearch(GetSuperPowersWithSearchViewModel getSuperPowersWithSearchViewModel);
     }
 }

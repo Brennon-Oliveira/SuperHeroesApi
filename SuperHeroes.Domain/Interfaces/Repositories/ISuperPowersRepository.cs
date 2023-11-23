@@ -1,4 +1,5 @@
 ﻿using SuperHeroes.Domain.Models;
+using SuperHeroes.Domain.VOs.SuperPowers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
     public interface ISuperPowersRepository : IBaseRepository<SuperPowers>
     {
         Task<int> NameIsAvaliable(string name);
-        Task<int> Exists(int id);
+        Task<List<SuperPowers>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO);
     }
 }
