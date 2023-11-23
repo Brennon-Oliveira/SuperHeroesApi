@@ -82,6 +82,7 @@ namespace SuperHeroes.Application.Services
             };
             try
             {
+
                 _superHeroesActions.Delete(id);
             }
             catch (Exception ex)

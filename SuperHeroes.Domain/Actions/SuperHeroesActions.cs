@@ -139,6 +139,21 @@ namespace SuperHeroes.Domain.Actions
                 superHero.Weight = updateSuperHeroVO.Weight.Value;
             }
 
+            var superPowersExists = await _superPowersRepository.SuperPowersExists(updateSuperHeroVO.SuperPowers ?? new List<int>());
+            if (superPowersExists != updateSuperHeroVO.SuperPowers.Count)
+            {
+                throw new ArgumentException("Nem todos os super poderes existem");
+            }
+
+            if (updateSuperHeroVO.SuperPowers != null)
+            {
+                await _superHeroesRepository.DeleteRelationsByHero(updateSuperHeroVO.Id);
+                if (updateSuperHeroVO.SuperPowers.Count > 0)
+                {
+                    await _superHeroesRepository.AddSuperPowers(updateSuperHeroVO.Id, updateSuperHeroVO.SuperPowers);
+                }
+            }
+
             int id = await _superHeroesRepository.Update(superHero);
             await _superHeroesRepository.SaveChanges();
             return id;
@@ -157,6 +172,7 @@ namespace SuperHeroes.Domain.Actions
                 throw new ArgumentException("Nenhum herois encontrado para o id " + id);
             }
 
+            await _superHeroesRepository.DeleteRelationsByHero(id);
            await _superHeroesRepository.Remove(id);
         }
     }

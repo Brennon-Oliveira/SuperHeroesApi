@@ -10,7 +10,7 @@ namespace SuperHeroes.Application.ViewModels.SuperHeroes
 {
     public class GetHeroesWithSearchViewModel: PaginationViewModel
     {
-        public string Search { get; set; }
+        public string? Search { get; set; }
 
         public GetSuperHeroesWithSearchVO ToGetHeroesWithSearchVO()
         {

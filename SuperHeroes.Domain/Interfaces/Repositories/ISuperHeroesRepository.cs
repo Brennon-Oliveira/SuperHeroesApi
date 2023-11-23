@@ -16,5 +16,7 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
         Task AddSuperPowers(int superHeroId, List<int> superPowers);
         Task<List<GetFullSuperHeroVO>> GetAllFull();
         Task<GetFullSuperHeroVO> GetFullHero(int id);
+        Task<List<string>> GetHeroesByPower(int powerId);
+        Task DeleteRelationsByHero(int id);
     }
 }

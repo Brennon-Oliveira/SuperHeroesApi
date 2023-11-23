@@ -65,9 +65,9 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public async Task<List<GetFullSuperHeroVO>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO)
         {
-            string search = getSuperHeroesWithSearchVO.Search ?? "";
+            string search = (getSuperHeroesWithSearchVO.Search ?? "").ToLower();
             return await DbSet
-                .Where(x => x.Name.Contains(search) || x.HeroName.Contains(search))
+                .Where(x => x.Name.ToLower().Contains(search) || x.HeroName.ToLower().Contains(search))
                 .Skip(getSuperHeroesWithSearchVO.Page * getSuperHeroesWithSearchVO.PageSize)
                 .Take(getSuperHeroesWithSearchVO.PageSize)
                 .Include(x => x.SuperPowers)
@@ -125,6 +125,20 @@ namespace SuperHeroes.Infra.Data.Repositories
                         }
                     }).ToList()
                 }).ToListAsync();
+        }
+
+        public async Task<List<string>> GetHeroesByPower(int powerId) 
+        {
+            return await DbSet
+                .Where(x => x.SuperPowers.Any(y => y.SuperPowersId == powerId))
+                .Select(x => x.Name)
+                .ToListAsync();
+        }
+
+        public async Task DeleteRelationsByHero(int id)
+        {
+            await Db.SuperHeroesSuperPowers.Where(x => x.SuperHeroesId == id).ExecuteDeleteAsync();
+            await Db.SaveChangesAsync();
         }
     }
 }

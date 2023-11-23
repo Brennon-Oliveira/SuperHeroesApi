@@ -14,6 +14,7 @@ namespace SuperHeroes.Domain.Actions
     public class SuperPowersActions : ISuperPowersActions
     {
         private readonly ISuperPowersRepository _superPowersRepository = ServiceLocator.GetService<ISuperPowersRepository>();
+        private readonly ISuperHeroesRepository _superHeroesRepository = ServiceLocator.GetService<ISuperHeroesRepository>();
         public async Task<int> Create(CreateSuperPowerVO createSuperPowerVO)
         {
             if(createSuperPowerVO is null)
@@ -97,6 +98,17 @@ namespace SuperHeroes.Domain.Actions
             if (exists < 0)
             {
                    throw new ArgumentException("Nenhum poder encontrado para o id " + id);
+            }
+
+            var superHeroes = await _superHeroesRepository.GetHeroesByPower(id);
+            if(superHeroes.Count > 0)
+            {
+                string error = "Não é possível excluir um poder que está sendo usado pelos herois:";
+                foreach (var hero in superHeroes)
+                {
+                    error += "\n" + hero;
+                }
+                throw new ArgumentException(error);
             }
 
             await _superPowersRepository.Remove(id);
