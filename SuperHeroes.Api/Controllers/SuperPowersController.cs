@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SuperHeroes.Infra.CrossCutting.ServiceLocator;
 using SuperHeroes.Application.Interfaces.Services;
+using SuperHeroes.Application.ViewModels.SuperPowers;
 
 namespace SuperHeroes.Api.Controllers
 {
@@ -15,32 +16,36 @@ namespace SuperHeroes.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            var result = _superPowersService.GetAll();
+            var result = await _superPowersService.GetAll();
             return CustomResponse(result);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
-            return Ok();
+            var result = await _superPowersService.GetById(id);
+            return CustomResponse(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create()
+        public async Task<ActionResult> Create([FromBody] CreateSuperPowerViewModel createSuperPowerViewModel)
         {
-            return Ok();
+            var result = await _superPowersService.Create(createSuperPowerViewModel);
+            return CustomResponse(result);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update()
+        public async Task<ActionResult> Update([FromBody] UpdateSuperPowerViewModel updateSuperPowerViewModel)
         {
-            return Ok();
+            var result = await _superPowersService.Update(updateSuperPowerViewModel);
+            return CustomResponse(result);
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> Delete()
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            return Ok();
+            var result = await _superPowersService.Delete(id);
+            return CustomResponse(result);
         }
     }
 }

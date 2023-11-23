@@ -30,7 +30,7 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public virtual async Task<T> GetById(int id)
         {
-            return await DbSet.FindAsync(id);
+            return await DbSet.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public virtual async Task<List<T>> GetAll()

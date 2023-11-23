@@ -56,7 +56,7 @@ namespace SuperHeroes.Domain.Actions
             }
 
             int exists = await _superPowersRepository.Exists(updateSuperPowerVO.Id);
-            if (exists < 0)
+            if (exists <= 0)
             {
                 throw new ArgumentException("Nenhum poder encontrado para o id " + updateSuperPowerVO.Id);
             }
