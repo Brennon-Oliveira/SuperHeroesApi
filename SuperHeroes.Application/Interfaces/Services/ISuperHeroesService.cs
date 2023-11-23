@@ -1,5 +1,7 @@
 ﻿using SuperHeroes.Application.Services;
 using SuperHeroes.Application.ViewModels.SuperHeroes;
+using SuperHeroes.Domain.VOs.Commons;
+using SuperHeroes.Domain.VOs.SuperHeroes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,10 @@ namespace SuperHeroes.Application.Interfaces.Services
     public interface ISuperHeroesService
     {
         public Task<ServiceResponse<int>> Create(CreateSuperHeroViewModel createSuperHeroViewModel);
+        public Task<ServiceResponse<int>> Update(UpdateSuperHeroViewModel updateSuperHeroViewModel);
+        public Task<ServiceResponse<int?>> Delete(int id);
+        Task<ServiceResponse<GetFullSuperHeroVO>> GetById(int id);
+        Task<ServiceResponse<List<Domain.Models.SuperHeroes>>> GetAll();
+        Task<ServiceResponse<PaginationResponseVO<Domain.Models.SuperHeroes>>> GetSuperHeroesWithSearch(GetHeroesWithSearchViewModel getHeroesWithSearchViewModel);
     }
 }

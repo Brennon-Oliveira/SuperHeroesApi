@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SuperHeroes.Domain.Interfaces.Repositories;
 using SuperHeroes.Domain.Models;
 using SuperHeroes.Domain.VOs.SuperHeroes;
+using SuperHeroes.Domain.VOs.SuperHeroesSuperPowers;
 using SuperHeroes.Domain.VOs.SuperPowers;
 using SuperHeroes.Infra.Data.Contexts;
 using System;
@@ -21,7 +22,7 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public override Task<int> Add(Domain.Models.SuperHeroes entity) => base.Add(entity);
 
-        public override void Remove(int id) => base.Remove(id);
+        public override Task Remove(int id) => base.Remove(id);
 
         public override Task<int> Update(Domain.Models.SuperHeroes entity) => base.Update(entity);
 
@@ -36,15 +37,50 @@ namespace SuperHeroes.Infra.Data.Repositories
             return await DbSet.Where(x => x.Name == name || x.HeroName == heroName).CountAsync();
         }
 
+        public async Task<GetFullSuperHeroVO> GetFullHero(int id)
+        {
+            return await DbSet
+                .Where(x => x.Id == id)
+                .Include(x => x.SuperPowers)
+                .ThenInclude(x => x.SuperPowers)
+                .Select(x => new GetFullSuperHeroVO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    HeroName = x.HeroName,
+                    BirthDate = x.BirthDate,
+                    Height = x.Height,
+                    Weight = x.Weight,
+                    SuperPowers = x.SuperPowers.Select(y => new GetSuperHeroSuperPowerPowerVO
+                    {
+                        SuperPowers = new GetSuperPowerWithoutHeroVO
+                        {
+                            Id = y.SuperPowers.Id,
+                            Name = y.SuperPowers.Name,
+                            Description = y.SuperPowers.Description
+                        }
+                    }).ToList()
+                }).FirstOrDefaultAsync();
+        }
+
         public async Task<List<Domain.Models.SuperHeroes>> GetSuperHeroesWithSearch(GetSuperHeroesWithSearchVO getSuperHeroesWithSearchVO)
         {
-
             string search = getSuperHeroesWithSearchVO.Search ?? "";
             return await DbSet
                 .Where(x => x.Name.Contains(search) || x.HeroName.Contains(search))
                 .Skip(getSuperHeroesWithSearchVO.Page * getSuperHeroesWithSearchVO.PageSize)
                 .Take(getSuperHeroesWithSearchVO.PageSize)
                 .ToListAsync();
+        }
+
+        public async Task AddSuperPowers(int superHeroId, List<int> superPowers)
+        {
+            await Db.SuperHeroesSuperPowers.AddRangeAsync(superPowers.Select(x => new SuperHeroesSuperPowers
+            {
+                SuperHeroesId = superHeroId,
+                SuperPowersId = x
+            }));
+            await Db.SaveChangesAsync();
         }
     }
 }

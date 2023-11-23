@@ -99,7 +99,7 @@ namespace SuperHeroes.Domain.Actions
                    throw new ArgumentException("Nenhum poder encontrado para o id " + id);
             }
 
-            _superPowersRepository.Remove(id);
+            await _superPowersRepository.Remove(id);
         }
     }
 }

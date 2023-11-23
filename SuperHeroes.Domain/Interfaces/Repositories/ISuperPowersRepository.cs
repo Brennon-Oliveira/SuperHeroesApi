@@ -12,5 +12,6 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
     {
         Task<int> NameIsAvaliable(string name);
         Task<List<SuperPowers>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO);
+        Task<int> SuperPowersExists(List<int> ids);
     }
 }

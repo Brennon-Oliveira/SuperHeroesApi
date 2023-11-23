@@ -9,7 +9,7 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
         Task<List<T>> GetAll();
         Task<T> GetById(int id);
         Task<int> SaveChanges();
-        void Remove(int id);
+        Task Remove(int id);
         Task<int> Update(T entity);
         Task<int> Exists(int id);
         Task<int> GetCount();

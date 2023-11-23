@@ -76,7 +76,6 @@ namespace SuperHeroes.Application.Services
 
         public async Task<ServiceResponse<int?>> Delete(int id)
         {
-            // EMPTY
             ServiceResponse<int?> serviceResponse = new()
             {
                 StatusCode = HttpStatusCode.OK

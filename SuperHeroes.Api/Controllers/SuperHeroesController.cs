@@ -16,19 +16,22 @@ namespace SuperHeroes.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            return Ok();
+            var result = await _superHeroesService.GetAll();
+            return CustomResponse(result);
         }
 
-        [HttpGet("search/{searchText}")]
-        public async Task<ActionResult> GetSearch(string searchText, [FromQuery]int page, [FromQuery]int pageSize)
+        [HttpGet("search")]
+        public async Task<ActionResult> GetSearch([FromQuery] GetHeroesWithSearchViewModel getHeroesWithSearchViewModel)
         {
-            return Ok();
+            var result = await _superHeroesService.GetSuperHeroesWithSearch(getHeroesWithSearchViewModel);
+            return CustomResponse(result);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
-            return Ok();
+            var result = await _superHeroesService.GetById(id);
+            return CustomResponse(result);
         }
 
         [HttpPost]
@@ -39,15 +42,17 @@ namespace SuperHeroes.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update()
+        public async Task<ActionResult> Update([FromBody] UpdateSuperHeroViewModel updateSuperHeroViewModel)
         {
-            return Ok();
+            var result = await _superHeroesService.Update(updateSuperHeroViewModel);
+            return CustomResponse(result);
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> Delete()
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            return Ok();
+            var result = await _superHeroesService.Delete(id);
+            return CustomResponse(result);
         }
     }
 }

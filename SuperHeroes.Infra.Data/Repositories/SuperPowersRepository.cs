@@ -20,7 +20,7 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public override Task<int> Add(SuperPowers entity) => base.Add(entity);
 
-        public override void Remove(int id) => base.Remove(id);
+        public override Task Remove(int id) => base.Remove(id);
 
         public override Task<int> Update(SuperPowers entity) => base.Update(entity);
 
@@ -42,6 +42,11 @@ namespace SuperHeroes.Infra.Data.Repositories
                 .Skip(getSuperPowersWithSearchVO.Page * getSuperPowersWithSearchVO.PageSize)
                 .Take(getSuperPowersWithSearchVO.PageSize)
                 .ToListAsync();
+        }
+
+        public Task<int> SuperPowersExists(List<int> ids)
+        {
+            return DbSet.Where(x => ids.Contains(x.Id)).CountAsync();
         }
     }
 }

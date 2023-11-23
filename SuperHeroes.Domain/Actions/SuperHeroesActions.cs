@@ -15,6 +15,7 @@ namespace SuperHeroes.Domain.Actions
     public class SuperHeroesActions : ISuperHeroesActions
     {
         private readonly ISuperHeroesRepository _superHeroesRepository = ServiceLocator.GetService<ISuperHeroesRepository>();
+        private readonly ISuperPowersRepository _superPowersRepository = ServiceLocator.GetService<ISuperPowersRepository>();
         public async Task<int> Create(CreateSuperHeroVO createSuperHeroVO)
         {
             if (createSuperHeroVO == null)
@@ -45,6 +46,13 @@ namespace SuperHeroes.Domain.Actions
                 throw new ArgumentException("Nome já está em uso");
             }
 
+            var superPowersExists = await _superPowersRepository.SuperPowersExists(createSuperHeroVO.SuperPowers ?? new List<int>());
+            if (superPowersExists != createSuperHeroVO.SuperPowers.Count)
+            {
+                throw new ArgumentException("Nem todos os super poderes existem");
+            }
+
+
             Models.SuperHeroes superHero = new Models.SuperHeroes
             {
                 Name = createSuperHeroVO.Name,
@@ -55,6 +63,14 @@ namespace SuperHeroes.Domain.Actions
             };
 
             int id = await _superHeroesRepository.Add(superHero);
+
+            if (createSuperHeroVO.SuperPowers != null && createSuperHeroVO.SuperPowers.Count > 0)
+            {
+                await _superHeroesRepository.AddSuperPowers(id, createSuperHeroVO.SuperPowers);
+            }
+
+            await _superHeroesRepository.SaveChanges();
+
             return id;
         }
 
@@ -72,7 +88,7 @@ namespace SuperHeroes.Domain.Actions
             int exists = await _superHeroesRepository.Exists(updateSuperHeroVO.Id);
             if (exists <= 0)
             {
-                throw new ArgumentException("Id não encontrado");
+                throw new ArgumentException("Nenhum heroi encontrado para o id " + updateSuperHeroVO.Id);
             }
 
             if(!string.IsNullOrWhiteSpace(updateSuperHeroVO.Name) && !string.IsNullOrWhiteSpace(updateSuperHeroVO.HeroName))
@@ -81,7 +97,7 @@ namespace SuperHeroes.Domain.Actions
 
                 if (nameIsAvaliable > 0)
                 {
-                    throw new ArgumentException("Nome já está em uso");
+                    throw new ArgumentException("Nome ou Nome de Herói já está em uso");
                 }
             }
 
@@ -124,6 +140,7 @@ namespace SuperHeroes.Domain.Actions
             }
 
             int id = await _superHeroesRepository.Update(superHero);
+            await _superHeroesRepository.SaveChanges();
             return id;
         }
 
@@ -140,7 +157,7 @@ namespace SuperHeroes.Domain.Actions
                 throw new ArgumentException("Nenhum herois encontrado para o id " + id);
             }
 
-            _superHeroesRepository.Remove(id);
+           await _superHeroesRepository.Remove(id);
         }
     }
 }

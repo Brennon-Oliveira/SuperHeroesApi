@@ -45,9 +45,10 @@ namespace SuperHeroes.Infra.Data.Repositories
             return entity.Id;
         }
 
-        public virtual void Remove(int id)
+        public async virtual Task Remove(int id)
         {
             DbSet.Where(x => x.Id == id).ExecuteDelete();
+            await SaveChanges();
         }
 
         public virtual async Task<int> Update(T entity)

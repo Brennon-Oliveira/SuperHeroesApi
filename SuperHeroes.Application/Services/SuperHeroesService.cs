@@ -1,7 +1,12 @@
 ﻿using SuperHeroes.Application.Interfaces.Services;
 using SuperHeroes.Application.ViewModels.SuperHeroes;
+using SuperHeroes.Application.ViewModels.SuperPowers;
+using SuperHeroes.Domain.Actions;
 using SuperHeroes.Domain.Interfaces.Actions;
 using SuperHeroes.Domain.Interfaces.Repositories;
+using SuperHeroes.Domain.Models;
+using SuperHeroes.Domain.VOs.Commons;
+using SuperHeroes.Domain.VOs.SuperHeroes;
 using SuperHeroes.Infra.CrossCutting.ServiceLocator;
 using System;
 using System.Collections.Generic;
@@ -28,7 +33,7 @@ namespace SuperHeroes.Application.Services
                 serviceResponse.Data = id;
             } catch (Exception ex)
             {
-                if (ex.GetType() == typeof(ArgumentNullException))
+                if (ex.GetType() == typeof(ArgumentNullException) || ex.GetType() == typeof(ArgumentException))
                 {
                     serviceResponse.StatusCode = HttpStatusCode.BadRequest;
                 }
@@ -39,6 +44,106 @@ namespace SuperHeroes.Application.Services
                 serviceResponse.Errors.Add(ex.Message);
             }
 
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<int>> Update(UpdateSuperHeroViewModel updateSuperHeroViewModel)
+        {
+            ServiceResponse<int> serviceResponse = new ServiceResponse<int>()
+            {
+                StatusCode = HttpStatusCode.OK
+            };
+            try
+            {
+                int id = await _superHeroesActions.Update(updateSuperHeroViewModel.ToUpdateSuperHeroVO());
+                serviceResponse.Data = id;
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(ArgumentNullException) || ex.GetType() == typeof(ArgumentException))
+                {
+                    serviceResponse.StatusCode = HttpStatusCode.BadRequest;
+                }
+                else
+                {
+                    serviceResponse.StatusCode = HttpStatusCode.InternalServerError;
+                }
+                serviceResponse.Errors.Add(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<int?>> Delete(int id)
+        {
+            ServiceResponse<int?> serviceResponse = new()
+            {
+                StatusCode = HttpStatusCode.OK
+            };
+            try
+            {
+                _superHeroesActions.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(ArgumentNullException) || ex.GetType() == typeof(ArgumentException))
+                {
+                    serviceResponse.StatusCode = HttpStatusCode.BadRequest;
+                }
+                else
+                {
+                    serviceResponse.StatusCode = HttpStatusCode.InternalServerError;
+                }
+                serviceResponse.Errors.Add(ex.Message);
+            }
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetFullSuperHeroVO>> GetById(int id)
+        {
+
+            ServiceResponse<GetFullSuperHeroVO> serviceResponse = new()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Data = await _superHeroesRepository.GetFullHero(id)
+            };
+            if (serviceResponse.Data is null)
+            {
+                serviceResponse.StatusCode = HttpStatusCode.NotFound;
+                serviceResponse.Errors.Add("Nenhum heroi encontrado para o id " + id);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<Domain.Models.SuperHeroes>>> GetAll()
+        {
+            ServiceResponse<List<Domain.Models.SuperHeroes>> serviceResponse = new()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Data = await _superHeroesRepository.GetAll()
+            };
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<PaginationResponseVO<Domain.Models.SuperHeroes>>> GetSuperHeroesWithSearch(GetHeroesWithSearchViewModel getHeroesWithSearchViewModel)
+        {
+            ServiceResponse<PaginationResponseVO<Domain.Models.SuperHeroes>> serviceResponse = new()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Data = new PaginationResponseVO<Domain.Models.SuperHeroes>
+                {
+                    Page = getHeroesWithSearchViewModel.Page,
+                    PageSize = getHeroesWithSearchViewModel.PageSize,
+                    Total = await _superHeroesRepository.GetCount(),
+                    Itens = await _superHeroesRepository.GetSuperHeroesWithSearch(getHeroesWithSearchViewModel.ToGetHeroesWithSearchVO())
+                }
+            };
+            if (serviceResponse.Data.Itens.Count == 0 && !string.IsNullOrEmpty(getHeroesWithSearchViewModel.Search))
+            {
+                serviceResponse.StatusCode = HttpStatusCode.NotFound;
+                serviceResponse.Errors.Add("Nenhum poder encontrado com os filtros informados");
+            }
             return serviceResponse;
         }
     }
