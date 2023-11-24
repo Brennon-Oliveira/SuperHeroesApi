@@ -30,9 +30,9 @@ namespace SuperHeroes.Infra.Data.Repositories
 
         public override async Task<int> Exists(int id) => await base.Exists(id);
 
-        public async Task<int> NameIsAvaliable(string name)
+        public async Task<int> NameIsAvaliable(string name , int id)
         {
-            return await DbSet.Where(x => x.Name == name).CountAsync();
+            return await DbSet.Where(x => x.Name == name && id != x.Id).CountAsync();
         }
 
         public async Task<List<GetFullSuperPowerVO>> GetAllFull()

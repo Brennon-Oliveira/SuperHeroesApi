@@ -33,7 +33,7 @@ namespace SuperHeroes.Domain.Actions
                 Description = createSuperPowerVO.Description
             };
 
-            int nameIsAvaliable = await _superPowersRepository.NameIsAvaliable(superPower.Name);
+            int nameIsAvaliable = await _superPowersRepository.NameIsAvaliable(superPower.Name, -1);
 
             if(nameIsAvaliable > 0)
             {
@@ -62,7 +62,7 @@ namespace SuperHeroes.Domain.Actions
                 throw new ArgumentException("Nenhum poder encontrado para o id " + updateSuperPowerVO.Id);
             }
 
-            int nameIsAvaliable = await _superPowersRepository.NameIsAvaliable(updateSuperPowerVO.Name);
+            int nameIsAvaliable = await _superPowersRepository.NameIsAvaliable(updateSuperPowerVO.Name, updateSuperPowerVO.Id);
 
             if (nameIsAvaliable > 0)
             {
@@ -87,7 +87,7 @@ namespace SuperHeroes.Domain.Actions
             return await _superPowersRepository.Update(superPowers);
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             if(id <= 0)
             {

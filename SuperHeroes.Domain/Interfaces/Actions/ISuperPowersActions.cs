@@ -11,7 +11,7 @@ namespace SuperHeroes.Domain.Interfaces.Actions
     {
         public Task<int> Create(CreateSuperPowerVO createSuperPowerVO);
         public Task<int> Update(UpdateSuperHeroVO updateSuperPowerVO);
-        public void Delete(int id);
+        public Task Delete(int id);
 
     }
 }

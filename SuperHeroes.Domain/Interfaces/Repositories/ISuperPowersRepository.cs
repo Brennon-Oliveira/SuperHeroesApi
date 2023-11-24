@@ -10,7 +10,7 @@ namespace SuperHeroes.Domain.Interfaces.Repositories
 {
     public interface ISuperPowersRepository : IBaseRepository<SuperPowers>
     {
-        Task<int> NameIsAvaliable(string name);
+        Task<int> NameIsAvaliable(string name, int id);
         Task<List<GetFullSuperPowerVO>> GetSuperPowersWithSearch(GetSuperPowersWithSearchVO getSuperPowersWithSearchVO);
         Task<List<GetFullSuperPowerVO>> GetAllFull();
         Task<GetFullSuperPowerVO> GetFull(int id);
