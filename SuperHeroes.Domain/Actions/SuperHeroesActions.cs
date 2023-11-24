@@ -39,7 +39,7 @@ namespace SuperHeroes.Domain.Actions
                 throw new ArgumentNullException("Peso precisa ser preenchido e positivo");
             }
 
-            int nameIsAvaliable = await _superHeroesRepository.NameIsAvaliable(createSuperHeroVO.Name, createSuperHeroVO.HeroName);
+            int nameIsAvaliable = await _superHeroesRepository.NameIsAvaliable(createSuperHeroVO.Name, createSuperHeroVO.HeroName, -1);
 
             if (nameIsAvaliable > 0)
             {
@@ -93,7 +93,7 @@ namespace SuperHeroes.Domain.Actions
 
             if(!string.IsNullOrWhiteSpace(updateSuperHeroVO.Name) && !string.IsNullOrWhiteSpace(updateSuperHeroVO.HeroName))
             {
-                int nameIsAvaliable = await _superHeroesRepository.NameIsAvaliable(updateSuperHeroVO.Name, updateSuperHeroVO.HeroName);
+                int nameIsAvaliable = await _superHeroesRepository.NameIsAvaliable(updateSuperHeroVO.Name, updateSuperHeroVO.HeroName, updateSuperHeroVO.Id);
 
                 if (nameIsAvaliable > 0)
                 {

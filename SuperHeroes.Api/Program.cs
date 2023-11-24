@@ -32,6 +32,21 @@ Log.Logger = new LoggerConfiguration()
 
 #endregion
 
+#region Cors configuration
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowedCorsOrigins",
+               builder =>
+               {
+            builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
+#endregion
+
 #region Builder Swagger configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -44,6 +59,8 @@ builder.Services.AddSwaggerGen(c =>
 #endregion
 
 var app = builder.Build();
+
+app.UseCors("AllowedCorsOrigins");
 
 app.MapControllers();
 

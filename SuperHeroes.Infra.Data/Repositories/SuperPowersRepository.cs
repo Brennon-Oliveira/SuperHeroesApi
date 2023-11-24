@@ -64,7 +64,7 @@ namespace SuperHeroes.Infra.Data.Repositories
         {
             return await DbSet
                 .Where(x => x.Name.ToLower().Contains((getSuperPowersWithSearchVO.Search ?? "").ToLower()))
-                .Skip(getSuperPowersWithSearchVO.Page * getSuperPowersWithSearchVO.PageSize)
+                .Skip((getSuperPowersWithSearchVO.Page-1) * getSuperPowersWithSearchVO.PageSize)
                 .Take(getSuperPowersWithSearchVO.PageSize)
                 .Select(x => new GetFullSuperPowerVO
                 {
